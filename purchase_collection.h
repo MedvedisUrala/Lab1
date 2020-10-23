@@ -17,11 +17,11 @@ public:
     int sum(const string &time_from, const string &date_from, const string &time_to, const string &date_to) const;
     int input_from_file(const string &name);
     int output_to_file(const string &name);
-    int equal(const purchase_collection& curr) const;
     ~purchase_collection();
     purchase* get_iterator() const {return this->queue;}
     int get_count() const {return  this->count;}
 private:
+    int equal(const purchase_collection& curr) const;
     int check_queue_date(const purchase &prev,const purchase &curr) const;
     purchase *queue;
     int count;

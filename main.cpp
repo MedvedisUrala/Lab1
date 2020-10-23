@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     test_class();
     test_collection_class();
     test_bc_class();
+
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

@@ -131,6 +131,7 @@ int purchase_collection::input_from_file(const string &name)
         }
         file.close();
     }
+
     return 1;
 }
 

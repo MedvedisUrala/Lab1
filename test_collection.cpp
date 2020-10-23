@@ -40,7 +40,6 @@ void test_collection_copy_constructor()
     purchase pur("12:12:12", "21:12:2000", 200);
     purchase_collection pc1(pur);
     purchase_collection pc2(pc1);
-    assert(pc1.equal(pc2) == 1);
 }
 
 
@@ -107,7 +106,7 @@ void test_input_output_file()
     purchase_collection pc;
     assert(pc.input_from_file("test_file.txt") == 1);
     print(pc);
-    assert(pc.output_to_file("test_file.txt") == 1);
+    assert(pc.output_to_file("test_out.txt") == 1);
 }
 
 
