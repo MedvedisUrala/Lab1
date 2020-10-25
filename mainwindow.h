@@ -33,8 +33,27 @@ private slots:
 
     void on_file_output_ok_clicked();
 
+    void on_bc_purchase_add_clicked();
+
+
+    void on_bc_view_collection_clicked();
+
+    void on_bc_size_clicked();
+
+    void on_bc_delete_queue_clicked();
+
+    void on_bc_delete_first_clicked();
+
+    void on_bc_amount_ok_clicked();
+
+    void on_bc_file_input_ok_clicked();
+
+    void on_bc_file_output_ok_clicked();
+
+    void on_toolBox_currentChanged(int index);
+
 private:
-    purchase_collection *collection{collection = nullptr};
+    purchase_collection collection;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

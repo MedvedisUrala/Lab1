@@ -74,6 +74,15 @@ void purchase::set_amount(const int value)
         this->amount = 0;
 }
 
+string purchase::get_data(const string &type) const
+{
+    if(type == "time")
+        return this->get_time();
+    if(type == "date")
+        return this->get_date();
+    return " ";
+}
+
 int purchase::check_time(const string &s) const
 {
     if(s.size() != 8)

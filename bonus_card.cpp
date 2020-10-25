@@ -41,3 +41,16 @@ void bonus_card::set_bonus_card_number(const string &value)
     else
         this->bonus_card_number = "000000000000";
 }
+
+string bonus_card::get_data(const string &type) const
+{
+    if(type == "time")
+        return this->get_time();
+    if(type == "date")
+        return this->get_date();
+    if(type == "card")
+        return this->get_bonus_card_number();
+    return "  ";
+}
+
+

@@ -15,6 +15,7 @@ public:
     void set_time(const string& value);
     void set_date(const string& value);
     void set_amount(const int value);
+    virtual string get_data(const string& type) const;
 private:
     int check_time(const string &s) const;
     int check_date(const string &s) const;

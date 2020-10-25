@@ -1,4 +1,5 @@
 #include "purchase_collection.h"
+#include "bonus_card.h"
 #include <iostream>
 #include <fstream>
 #include <string.h>
@@ -13,7 +14,8 @@ purchase_collection::purchase_collection()
 
 purchase_collection::purchase_collection(purchase &pur)
 {
-    this->queue = new purchase[1]{pur};
+    this->queue = new purchase*[1];
+    *this->queue = &pur;
     this->count = 1;
 }
 
@@ -21,7 +23,7 @@ purchase_collection::purchase_collection(const purchase_collection &other)
 {
     if(other.queue)
     {
-        this->queue = new purchase[other.count];
+        this->queue = new purchase*[other.count];
         this->count = other.count;
         for(int i = 0; i < this->count; i++)
             this->queue[i] = other.queue[i];
@@ -34,26 +36,26 @@ purchase_collection::purchase_collection(const purchase_collection &other)
 
 }
 
-int purchase_collection::push(const purchase &pur)
+int purchase_collection::push(purchase &pur)
 {
     if (this->queue && this->size() != 0)
     {
-        if (check_queue_date(this->queue[this->count -1], pur))
+        if (check_queue_date(*this->queue[this->count -1], pur))
         {
             this->count++;
-            purchase *pc = new purchase[this->count];
+            purchase **pc = new purchase*[this->count];
             for(int i = 0; i < this->count - 1; i++)
                 pc[i] = this->queue[i];
             delete [] this->queue;
-            pc[this->count - 1] = pur;
+            pc[this->count - 1] = &pur;
             this->queue = pc;
         }
     }
     else
     {
         this->count++;
-        purchase *pc = new purchase[this->count];
-        pc[this->count - 1] = pur;
+        purchase **pc = new purchase*[this->count];
+        pc[this->count - 1] = &pur;
         this->queue = pc;
     }
     return 1;
@@ -64,7 +66,7 @@ int purchase_collection::pop()
     if (this->count > 1)
     {
         this->count--;
-        purchase *pc = new purchase[this->count];
+        purchase **pc = new purchase*[this->count];
         for(int i = 0; i < this->count; i++)
             pc[i] = this->queue[i+1];
         delete [] this->queue;
@@ -100,8 +102,8 @@ int purchase_collection::sum(const string &time_from, const string &date_from, c
     purchase pur_to(time_to, date_to,0);
     int count = 0;
     for(int i = 0; i < this->count; i++)
-        if(check_queue_date(pur_from, this->queue[i]) && check_queue_date(this->queue[i], pur_to))
-            count += this->queue[i].get_amount();
+        if(check_queue_date(pur_from, *this->queue[i]) && check_queue_date(*this->queue[i], pur_to))
+            count += this->queue[i]->get_amount();
     return count;
 }
 
@@ -125,9 +127,41 @@ int purchase_collection::input_from_file(const string &name)
             file >> time;
             file >> date;
             file >> amount;
-            purchase pur(time, date, amount);
-            if (!(pur.get_time() == "00:00:00" && pur.get_date() == "01:01:1970" && pur.get_amount() == 0))
-                this->push(pur);
+            auto pur = new purchase(time, date, amount);
+            if (!(pur->get_time() == "00:00:00" && pur->get_date() == "01:01:1970" && pur->get_amount() == 0))
+                this->push(*pur);
+        }
+        file.close();
+    }
+
+    return 1;
+}
+
+int purchase_collection::bc_input_from_file(const string &name)
+{
+    string time;
+    string date;
+    int amount;
+    string number;
+    ifstream file(name);
+
+    if(this->queue)
+    {
+        delete [] this->queue;
+        this->queue = nullptr;
+        this->count = 0;
+    }
+    if (file.is_open())
+    {
+        while(!file.eof())
+        {
+            file >> time;
+            file >> date;
+            file >> amount;
+            file >> number;
+            auto card = new bonus_card(time, date, amount,number);
+            if (!(card->get_time() == "00:00:00" && card->get_date() == "01:01:1970" && card->get_amount() == 0 && card->get_bonus_card_number() == "000000000000"))
+                this->push(*card);
         }
         file.close();
     }
@@ -142,20 +176,22 @@ int purchase_collection::output_to_file(const string &name)
     for(int i = 0;i < this->count;i++)
     {
         fout << "#" << i+1 << endl;
-        fout << this->queue[i].get_time()<< endl;
-        fout << this->queue[i].get_date() << endl;
-        fout << this->queue[i].get_amount() << endl << endl;
+        fout << this->queue[i]->get_time()<< endl;
+        fout << this->queue[i]->get_date() << endl;
+        fout << this->queue[i]->get_amount() << endl;
+        fout << this->queue[i]->get_data("card") << endl <<endl;
     }
     fout.close();
     return 1;
 }
+
 
 int purchase_collection::equal(const purchase_collection &curr) const
 {
     if(this->get_count() != curr.get_count())
             return 0;
     for (int i = 0; i < this->get_count();i++)
-        if (!(this->get_iterator()->get_date() == curr.get_iterator()->get_date() && this->get_iterator()->get_time() == curr.get_iterator()->get_time() && this->get_iterator()->get_amount() == curr.get_iterator()->get_amount()))
+        if (!(this->get_iterator()[1]->get_date() == curr.get_iterator()[1]->get_date() && this->get_iterator()[1]->get_time() == curr.get_iterator()[1]->get_time() && this->get_iterator()[1]->get_amount() == curr.get_iterator()[1]->get_amount()))
             return 0;
     return 1;
 }

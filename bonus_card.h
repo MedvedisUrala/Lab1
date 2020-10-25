@@ -10,6 +10,7 @@ class bonus_card : public purchase
         bonus_card(const bonus_card &other);
         const string& get_bonus_card_number() const;
         void set_bonus_card_number(const string& value);
+        string get_data(const string &type) const override;
     private:
         string bonus_card_number;
 };

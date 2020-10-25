@@ -14,7 +14,7 @@ class second_window : public QDialog
 
 public:
     explicit second_window(QWidget *parent = nullptr);
-    void insert_data(const purchase_collection* collection) const;
+    void insert_data(purchase_collection* collection, int size) const;
     ~second_window();
 
 private slots:
