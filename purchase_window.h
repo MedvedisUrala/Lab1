@@ -32,6 +32,8 @@ private slots:
     void on_file_input_ok_clicked();
 
     void on_file_output_ok_clicked();
+    void on_pushButton_clicked();
+
 private:
     purchase_collection pur_collection;
     Ui::purchase_window *ui;

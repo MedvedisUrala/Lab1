@@ -8,12 +8,14 @@
 #include <QStandardItemModel>
 #include "bonus_card.h"
 #include "mainwindow.h"
+#include <fstream>
 
 bc_window::bc_window(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::bc_window)
 {
     ui->setupUi(this);
+    this->bc_collection.bc_input_from_file("save_bc.txt");
 }
 
 
@@ -116,6 +118,18 @@ bc_window::~bc_window()
     delete ui;
 }
 
+void bc_save_data(const purchase_collection& col)
+{
+    ofstream fout("save_bc.txt");
+    for(int i = 0;i < col.get_count();i++)
+    {
+        fout << col.get_iterator()[i]->get_time()<< endl;
+        fout << col.get_iterator()[i]->get_date() << endl;
+        fout << col.get_iterator()[i]->get_amount() << endl;
+        fout << col.get_iterator()[i]->get_data("card") << endl <<endl;
+    }
+    fout.close();
+}
 
 void bc_window::on_pushButton_bc_back_clicked()
 {
@@ -124,5 +138,6 @@ void bc_window::on_pushButton_bc_back_clicked()
     {
         bc_collection.clear();
     }
+    bc_save_data(bc_collection);
     this->close();
 }

@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 }
 
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -24,7 +25,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_bc_clicked()
 {
-    this->close();
     bc_window window;
     window.setModal(true);
     window.exec();
@@ -32,7 +32,6 @@ void MainWindow::on_pushButton_bc_clicked()
 
 void MainWindow::on_pushButton_pur_clicked()
 {
-    this->close();
     purchase_window window;
     window.setModal(true);
     window.exec();

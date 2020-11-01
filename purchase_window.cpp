@@ -7,12 +7,15 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 #include "bonus_card.h"
+#include "mainwindow.h"
+#include <fstream>
 
 purchase_window::purchase_window(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::purchase_window)
 {
     ui->setupUi(this);
+    this->pur_collection.input_from_file("save_pur.txt");
 }
 
 void purchase_window::on_purchase_add_clicked()
@@ -114,4 +117,29 @@ void purchase_window::on_file_output_ok_clicked()
 purchase_window::~purchase_window()
 {
     delete ui;
+}
+
+void pur_save_data(const purchase_collection& col)
+{
+    ofstream fout("save_pur.txt");
+    for(int i = 0;i < col.get_count();i++)
+    {
+        fout << col.get_iterator()[i]->get_time()<< endl;
+        fout << col.get_iterator()[i]->get_date() << endl;
+        fout << col.get_iterator()[i]->get_amount() << endl;
+        fout << col.get_iterator()[i]->get_data("card") << endl <<endl;
+    }
+    fout.close();
+}
+
+void purchase_window::on_pushButton_clicked()
+{
+
+    QMessageBox::StandardButton save = QMessageBox::question(this, "Save", "Save collection?", QMessageBox::Yes | QMessageBox::No);
+    if(save == QMessageBox::No)
+    {
+        pur_collection.clear();
+    }
+    pur_save_data(pur_collection);
+    this->close();
 }
