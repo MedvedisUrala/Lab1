@@ -143,6 +143,7 @@ int purchase_collection::bc_input_from_file(const string &name)
     string date;
     int amount;
     string number;
+    string telenum;
     ifstream file(name);
 
     if(this->queue)
@@ -159,7 +160,8 @@ int purchase_collection::bc_input_from_file(const string &name)
             file >> date;
             file >> amount;
             file >> number;
-            auto card = new bonus_card(time, date, amount,number);
+            file >> telenum;
+            auto card = new bonus_card(time, date, amount,number,telenum);
             if (!(card->get_time() == "00:00:00" && card->get_date() == "01:01:1970" && card->get_amount() == 0 && card->get_bonus_card_number() == "000000000000"))
                 this->push(*card);
         }
@@ -179,7 +181,8 @@ int purchase_collection::output_to_file(const string &name)
         fout << this->queue[i]->get_time()<< endl;
         fout << this->queue[i]->get_date() << endl;
         fout << this->queue[i]->get_amount() << endl;
-        fout << this->queue[i]->get_data("card") << endl <<endl;
+        fout << this->queue[i]->get_data("card") << endl;
+        fout << this->queue[i]->get_data("tele") << endl <<endl;
     }
     fout.close();
     return 1;

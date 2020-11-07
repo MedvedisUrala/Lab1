@@ -5,7 +5,7 @@
 #include "purchase.h"
 #include "test.h"
 #include "purchase_collection.h"
-
+#include "dialog.h"
 int main(int argc, char *argv[])
 {
     test_class();

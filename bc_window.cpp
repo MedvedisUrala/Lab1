@@ -25,7 +25,7 @@ void bc_window::on_bc_purchase_add_clicked()
     std:: string date  = ui->bc_purchase_date->text().toStdString();
     int amount  = atoi(ui->bc_purchase_amount->text().toStdString().c_str());
     std:: string bc_number  = ui->bc_purchase_bonus_card->text().toStdString();
-    auto card = new bonus_card(time, date, amount, bc_number);
+    auto card = new bonus_card(time, date, amount, bc_number,"+7");
     if(card->get_time() == "00:00:00" || card->get_date() == "01:01:1970" || card->get_amount() == 0 || card->get_bonus_card_number() == "000000000000")
         QMessageBox::critical(this,"Add", "Wrong data. Please, try again");
     else

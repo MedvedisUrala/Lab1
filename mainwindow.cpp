@@ -9,6 +9,7 @@
 #include "bonus_card.h"
 #include "purchase_window.h"
 #include "bc_window.h"
+#include "dialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -25,13 +26,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_bc_clicked()
 {
-    bc_window window;
+    Dialog window;
+    //bc_window window;
     window.setModal(true);
     window.exec();
 }
 
 void MainWindow::on_pushButton_pur_clicked()
 {
+    hide();
     purchase_window window;
     window.setModal(true);
     window.exec();

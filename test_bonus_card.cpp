@@ -15,7 +15,7 @@ void test_bc_default_constructor()
 
 void test_bc_init_constructor()
 {
-    bonus_card card("12:12:12", "21:12:2000", 200, "123456789123");
+    bonus_card card("12:12:12", "21:12:2000", 200, "123456789123","+79041232123");
     assert(card.get_time() == "12:12:12");
     assert(card.get_date() == "21:12:2000");
     assert(card.get_amount() == 200);
@@ -24,7 +24,7 @@ void test_bc_init_constructor()
 
 void test_bc_copy_constructor()
 {
-    bonus_card card("12:12:12", "21:12:2000", 200, "123456789123");
+    bonus_card card("12:12:12", "21:12:2000", 200, "123456789123","+79041232123");
     bonus_card card2(card);
     assert(card2.get_time() == "12:12:12");
     assert(card2.get_date() == "21:12:2000");

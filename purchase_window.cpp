@@ -127,7 +127,6 @@ void pur_save_data(const purchase_collection& col)
         fout << col.get_iterator()[i]->get_time()<< endl;
         fout << col.get_iterator()[i]->get_date() << endl;
         fout << col.get_iterator()[i]->get_amount() << endl;
-        fout << col.get_iterator()[i]->get_data("card") << endl <<endl;
     }
     fout.close();
 }

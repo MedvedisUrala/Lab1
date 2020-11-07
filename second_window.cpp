@@ -37,6 +37,8 @@ void second_window::insert_data(purchase_collection* collection, int size) const
         model->appendRow(item);
         item = new QStandardItem(QString(QString::fromStdString(collection->get_iterator()[i]->get_data("card"))));
         model->appendRow(item);
+        item = new QStandardItem(QString(QString::fromStdString(collection->get_iterator()[i]->get_data("tele"))));
+        model->appendRow(item);
         item = new QStandardItem(QString("   "));
         model->appendRow(item);
     }

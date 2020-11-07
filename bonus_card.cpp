@@ -14,19 +14,23 @@ int check_bonus_card(const string& value)
 bonus_card::bonus_card()
 {
     this->bonus_card_number = "000000000000";
+    this->telephone_num = "+7";
 }
 
-bonus_card::bonus_card(const string &time, const string &date, int amount, const string &bonus_card_number):purchase(time, date,amount)
+bonus_card::bonus_card(const string &time, const string &date, int amount, const string &bonus_card_number, const string &telephone):purchase(time, date,amount)
 {
     if(check_bonus_card(bonus_card_number))
         this->bonus_card_number = bonus_card_number;
     else
         this->bonus_card_number = "000000000000";
+    this->telephone_num = telephone;
+
 }
 
 bonus_card::bonus_card(const bonus_card &other):purchase(other)
 {
     this->bonus_card_number = other.bonus_card_number;
+    this->telephone_num = other.telephone_num;
 }
 
 const string &bonus_card::get_bonus_card_number() const
@@ -50,6 +54,8 @@ string bonus_card::get_data(const string &type) const
         return this->get_date();
     if(type == "card")
         return this->get_bonus_card_number();
+    if(type == "tele")
+        return this->telephone_num;
     return "  ";
 }
 
