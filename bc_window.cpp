@@ -125,7 +125,7 @@ void bc_window::on_pushButton_bc_back_clicked()
     QMessageBox::StandardButton save = QMessageBox::question(this, "Save", "Save collection?", QMessageBox::Yes | QMessageBox::No);
     if(save == QMessageBox::No)
     {
-        bc_collection.clear();
+        this->bc_collection.clear();
     }
     bc_save_data(bc_collection);
     this->close();

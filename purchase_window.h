@@ -14,10 +14,10 @@ class purchase_window : public QDialog
 
 public:
     explicit purchase_window(QWidget *parent = nullptr);
+    void set_dialog_coll(purchase_collection *coll){this->pur_collection_dial = coll;}
     ~purchase_window();
 
 private slots:
-    void on_purchase_add_clicked();
 
     void on_view_collection_clicked();
 
@@ -36,6 +36,7 @@ private slots:
 
 private:
     purchase_collection pur_collection;
+    purchase_collection *pur_collection_dial;
     Ui::purchase_window *ui;
 };
 void pur_save_data(const purchase_collection& col);

@@ -25,6 +25,12 @@ private slots:
 
     void on_pushButton_check_del_pur_clicked();
 
+    void on_pushButton_back_pur_clicked();
+
+    void on_pushButton_pay_pur_clicked();
+
+    void on_pushButton_about_pur_clicked();
+
 private:
     purchase_collection bc_collection;
     Ui::Dialog_pur *ui;

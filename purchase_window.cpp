@@ -18,21 +18,6 @@ purchase_window::purchase_window(QWidget *parent) :
     this->pur_collection.input_from_file("save_pur.txt");
 }
 
-void purchase_window::on_purchase_add_clicked()
-{
-    std:: string time  = ui->purchase_time->text().toStdString();
-    std:: string date  = ui->purchase_date->text().toStdString();
-    int amount  = atoi(ui->purchase_amount->text().toStdString().c_str());
-    auto pur = new purchase(time, date, amount);
-    if(pur->get_time() == "00:00:00" || pur->get_date() == "01:01:1970" || pur->get_amount() == 0)
-        QMessageBox::critical(this,"Add", "Wrong data. Please, try again");
-    else
-    {
-            this->pur_collection.push(*pur);
-        QMessageBox::information(this, "Add", "You add new purchase");
-    }
-}
-
 
 
 void purchase_window::on_view_collection_clicked()
@@ -54,6 +39,7 @@ void purchase_window::on_delete_first_clicked()
     if(this->pur_collection.get_iterator() && this->pur_collection.size())
     {
         this->pur_collection.pop();
+        this->pur_collection_dial->pop();
         QMessageBox::information(this, "Pop", "You pop first purchase");
     }
     else
@@ -65,6 +51,7 @@ void purchase_window::on_delete_queue_clicked()
     if(this->pur_collection.get_iterator() && this->pur_collection.size())
     {
         this->pur_collection.clear();
+        this->pur_collection_dial->clear();
         QMessageBox::information(this, "Clean", "You delete all queue");
     }
     else
@@ -100,6 +87,7 @@ void purchase_window::on_amount_ok_clicked()
 void purchase_window::on_file_input_ok_clicked()
 {
     this->pur_collection.input_from_file(ui->file_input_name->text().toStdString());
+    this->pur_collection_dial->input_from_file(ui->file_input_name->text().toStdString());
     QMessageBox::information(this, "Input from file", "Success input from file");
 }
 
@@ -137,8 +125,8 @@ void purchase_window::on_pushButton_clicked()
     QMessageBox::StandardButton save = QMessageBox::question(this, "Save", "Save collection?", QMessageBox::Yes | QMessageBox::No);
     if(save == QMessageBox::No)
     {
-        pur_collection.clear();
+        this->pur_collection.clear();
     }
-    pur_save_data(pur_collection);
+    pur_save_data(this->pur_collection);
     this->close();
 }

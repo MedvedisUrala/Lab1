@@ -117,12 +117,16 @@ void Dialog_pur::on_pushButton_pay_pur_clicked()
     string date = string(buffer);
     auto pur = new purchase(time,date,ui->label_amount_pur->text().toInt());
     this->bc_collection.push(*pur);
+
+
+    ui->listWidget_check_pur->clear();
+    ui->label_amount_pur->setText(QString::number(0));
 }
 
 void Dialog_pur::on_pushButton_about_pur_clicked()
 {
     pur_save_data(this->bc_collection);
-    bc_window window;
+    purchase_window window;
     window.set_dialog_coll(&this->bc_collection);
     window.setModal(true);
     window.exec();
