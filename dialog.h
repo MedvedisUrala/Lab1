@@ -33,6 +33,8 @@ private slots:
 
     void on_pushButton_about_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     purchase_collection bc_collection;
     Ui::Dialog *ui;

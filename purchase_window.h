@@ -38,5 +38,6 @@ private:
     purchase_collection pur_collection;
     Ui::purchase_window *ui;
 };
+void pur_save_data(const purchase_collection& col);
 
 #endif // PURCHASE_WINDOW_H

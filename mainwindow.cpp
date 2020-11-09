@@ -10,6 +10,7 @@
 #include "purchase_window.h"
 #include "bc_window.h"
 #include "dialog.h"
+#include "dialog_pur.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -34,8 +35,9 @@ void MainWindow::on_pushButton_bc_clicked()
 
 void MainWindow::on_pushButton_pur_clicked()
 {
-    hide();
-    purchase_window window;
+    Dialog_pur window;
+    //hide();
+    //purchase_window window;
     window.setModal(true);
     window.exec();
 }

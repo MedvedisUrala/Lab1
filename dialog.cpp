@@ -246,3 +246,14 @@ void Dialog::on_pushButton_about_clicked()
     window.setModal(true);
     window.exec();
 }
+
+void Dialog::on_pushButton_clicked()
+{
+    QMessageBox::StandardButton save = QMessageBox::question(this, "Save", "Save collection?", QMessageBox::Yes | QMessageBox::No);
+    if(save == QMessageBox::No)
+    {
+        bc_collection.clear();
+    }
+    bc_save_data(bc_collection);
+    this->close();
+}

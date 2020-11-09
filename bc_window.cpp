@@ -86,6 +86,7 @@ void bc_window::on_bc_amount_ok_clicked()
 void bc_window::on_bc_file_input_ok_clicked()
 {
     this->bc_collection.bc_input_from_file(ui->bc_file_input_name->text().toStdString());
+    this->bc_collectiom_dial->bc_input_from_file(ui->bc_file_input_name->text().toStdString());
     QMessageBox::information(this, "Input from file", "Success input from file");
 }
 
