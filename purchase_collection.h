@@ -21,9 +21,9 @@ public:
     ~purchase_collection();
     purchase** get_iterator() const {return this->queue;}
     int get_count() const {return  this->count;}
+    int check_queue_date(const purchase &prev,const purchase &curr) const;
 private:
     int equal(const purchase_collection& curr) const;
-    int check_queue_date(const purchase &prev,const purchase &curr) const;
     purchase **queue;
     int count;
 };

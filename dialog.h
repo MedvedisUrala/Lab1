@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <string>
+#include "purchase_collection.h"
 using namespace  std;
 
 namespace Ui {
@@ -26,7 +27,14 @@ private slots:
 
     void on_pushButton_check_del_clicked();
 
+    void on_pushButton_pay_clicked();
+
+    void on_pushButton_num_card_ok_clicked();
+
+    void on_pushButton_about_clicked();
+
 private:
+    purchase_collection bc_collection;
     Ui::Dialog *ui;
 };
 

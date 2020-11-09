@@ -19,21 +19,6 @@ bc_window::bc_window(QWidget *parent) :
 }
 
 
-void bc_window::on_bc_purchase_add_clicked()
-{
-    std:: string time  = ui->bc_purchase_time->text().toStdString();
-    std:: string date  = ui->bc_purchase_date->text().toStdString();
-    int amount  = atoi(ui->bc_purchase_amount->text().toStdString().c_str());
-    std:: string bc_number  = ui->bc_purchase_bonus_card->text().toStdString();
-    auto card = new bonus_card(time, date, amount, bc_number,"+7");
-    if(card->get_time() == "00:00:00" || card->get_date() == "01:01:1970" || card->get_amount() == 0 || card->get_bonus_card_number() == "000000000000")
-        QMessageBox::critical(this,"Add", "Wrong data. Please, try again");
-    else
-    {
-        this->bc_collection.push(*card);
-        QMessageBox::information(this, "Add", "You add new purchase");
-    }
-}
 
 void bc_window::on_bc_view_collection_clicked()
 {
@@ -65,6 +50,7 @@ void bc_window::on_bc_delete_queue_clicked()
     if(this->bc_collection.get_iterator() && this->bc_collection.size())
     {
         this->bc_collection.clear();
+        this->bc_collectiom_dial->clear();
         QMessageBox::information(this, "Clean", "You delete all queue");
     }
     else
@@ -76,6 +62,7 @@ void bc_window::on_bc_delete_first_clicked()
     if(this->bc_collection.get_iterator() && this->bc_collection.size())
     {
         this->bc_collection.pop();
+        this->bc_collectiom_dial->pop();
         QMessageBox::information(this, "Pop", "You pop first purchase");
     }
     else
@@ -126,7 +113,8 @@ void bc_save_data(const purchase_collection& col)
         fout << col.get_iterator()[i]->get_time()<< endl;
         fout << col.get_iterator()[i]->get_date() << endl;
         fout << col.get_iterator()[i]->get_amount() << endl;
-        fout << col.get_iterator()[i]->get_data("card") << endl <<endl;
+        fout << col.get_iterator()[i]->get_data("card") << endl;
+        fout << col.get_iterator()[i]->get_data("tele") << endl <<endl;
     }
     fout.close();
 }
@@ -141,3 +129,4 @@ void bc_window::on_pushButton_bc_back_clicked()
     bc_save_data(bc_collection);
     this->close();
 }
+
